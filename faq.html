@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth antialiased">
+<head>
+  <meta charset="UTF-8" />
+  <title>BENCOIFF | FAQ</title>
+  <meta name="description" content="Questions fréquentes sur Bencoiff. Concept gratuit, amateur et passionné à Caen." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            violet: {
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              950: '#2e1065',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    
+    /* Animation du Menu "Drawer" */
+    #mobile-menu {
+        transition: max-height 0.5s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+    #mobile-menu.menu-open {
+        max-height: 600px;
+        opacity: 1;
+    }
+    
+    #menu-overlay {
+        transition: opacity 0.4s ease;
+        opacity: 0;
+        pointer-events: none;
+    }
+    #menu-overlay.overlay-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .menu-link {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #mobile-menu.menu-open .menu-link {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
+
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+
+  <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+    <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-zinc-200/50"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center relative z-20">
+      <a href="index.html" class="group">
+        <h1 class="text-2xl font-serif font-bold tracking-tight text-zinc-900">
+          BEN<span class="text-violet-500 group-hover:text-violet-400 transition-colors">.</span>COIFF
+        </h1>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-[0.2em] uppercase">
+        <a href="index.html" class="hover:text-violet-500 transition-colors">Accueil</a>
+        <a href="planning.html" class="hover:text-violet-500 transition-colors">Réserver</a>
+        <a href="avis.html" class="hover:text-violet-500 transition-colors">Avis</a>
+        <a href="faq.html" class="hover:text-violet-500 transition-colors">FAQ</a>
+        <a href="admin.html" class="text-zinc-400 hover:text-zinc-900 transition-colors">Admin</a>
+      </nav>
+
+      <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center text-zinc-900 focus:outline-none">
+        <div class="space-y-1.5 pointer-events-none">
+          <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center" id="bar1"></span>
+          <span class="block w-6 h-0.5 bg-current transition-opacity duration-300" id="bar2"></span>
+          <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center" id="bar3"></span>
+        </div>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10">
+      <div class="flex flex-col items-center py-10 space-y-8">
+        
+        <nav class="flex flex-col space-y-6 text-center">
+            <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
+            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
+            <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
+            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
+            <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
+        </nav>
+
+        <div class="w-12 h-0.5 bg-zinc-200 rounded-full menu-link" style="transition-delay: 200ms;"></div>
+
+        <div class="menu-link flex flex-col items-center gap-4" style="transition-delay: 250ms;">
+             <div class="flex gap-6">
+                <a href="https://instagram.com/ben_coifff" target="_blank" class="text-zinc-500 hover:text-violet-500 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://tiktok.com/@ben.brtp_" target="_blank" class="text-zinc-500 hover:text-violet-500 transition-colors">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.62-1.12-1.76-1.57-2.56-1.57-2.53-3.05v7.22c.03 2.99-2.06 6.01-5.35 6.44-2.93.38-5.93-1.47-6.52-4.37-.62-2.9 1.25-6.02 4.18-6.51.58-.1 1.17-.11 1.76-.02v4.06c-1.13-.53-2.73-.24-3.53.86-.74 1.01-.52 2.56.51 3.32 1.05.77 2.62.66 3.52-.39.81-.95.66-2.23.66-3.49.01-4.04.01-8.08.01-12.12.75-.02 1.5-.02 2.25-.03z"/></svg>
+                </a>
+             </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-32 pb-20 px-6">
+    
+    <section class="max-w-4xl mx-auto text-center mb-16 animate-fade-in-up">
+        <span class="inline-block py-1 px-3 rounded-full border border-violet-500/20 bg-violet-500/5 text-violet-500 text-[10px] font-bold tracking-widest uppercase mb-6">
+            À propos
+        </span>
+        <h1 class="text-4xl md:text-6xl font-serif font-medium text-zinc-900 mb-6">
+            Questions & Réponses
+        </h1>
+        <p class="text-zinc-500 text-lg font-light max-w-xl mx-auto">
+            <span id="typing-text"></span><span class="animate-pulse text-violet-500">|</span>
+        </p>
+    </section>
+
+    <section class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+      
+      <article class="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-violet-500/30 transition-colors duration-300">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-zinc-900 group-hover:text-violet-500 transition-colors">Est-ce un vrai salon ?</h2>
+            <span class="text-2xl">💈</span>
+        </div>
+        <p class="text-zinc-500 font-light leading-relaxed">
+          Non, pas vraiment. Je coupe les cheveux chez moi, pour le plaisir, dans un cadre totalement non professionnel. Pas de commerce, pas d’entreprise : juste une paire de ciseaux, une chaise, et quelques gens sympas.
+        </p>
+      </article>
+
+      <article class="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-violet-500/30 transition-colors duration-300">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-zinc-900 group-hover:text-violet-500 transition-colors">C’est gratuit ?</h2>
+            <span class="text-2xl">🎁</span>
+        </div>
+        <p class="text-zinc-500 font-light leading-relaxed">
+          Oui, toujours. Je ne demande ni argent, ni service, ni troc. C’est juste pour m’amuser et progresser. <br>
+          <span class="font-medium text-zinc-800">Aucune forme de paiement ou de “petit geste” n’est acceptée.</span>
+        </p>
+      </article>
+
+      <article class="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-violet-500/30 transition-colors duration-300">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-zinc-900 group-hover:text-violet-500 transition-colors">Pourquoi un planning ?</h2>
+            <span class="text-2xl">📅</span>
+        </div>
+        <p class="text-zinc-500 font-light leading-relaxed">
+          C’est simplement pour éviter que tout le monde arrive en même temps. Ce n’est pas un vrai planning de salon, c’est juste une façon de m’organiser tranquillement.
+        </p>
+      </article>
+
+      <article class="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-violet-500/30 transition-colors duration-300">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-zinc-900 group-hover:text-violet-500 transition-colors">Tu es diplômé ?</h2>
+            <span class="text-2xl">🎓</span>
+        </div>
+        <p class="text-zinc-500 font-light leading-relaxed">
+          Non, je n’ai pas de CAP coiffure. Je coupe parce que ça me plaît, mais je ne prétends pas être professionnel. Si tu viens, c’est en toute connaissance de cause : je fais au mieux, mais je suis en apprentissage.
+        </p>
+      </article>
+
+      <article class="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-violet-500/30 transition-colors duration-300">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-zinc-900 group-hover:text-violet-500 transition-colors">Pourquoi ce site ?</h2>
+            <span class="text-2xl">🌐</span>
+        </div>
+        <p class="text-zinc-500 font-light leading-relaxed">
+          Parce que j’aime bien le délire 😄. C’est un projet perso, un peu créatif, pour partager ça avec les gens autour de moi. Ce n’est pas une entreprise, juste un hobby.
+        </p>
+      </article>
+
+      <article class="group p-8 bg-violet-50 border border-violet-100 rounded-2xl">
+        <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-serif text-violet-600">En résumé</h2>
+            <span class="text-2xl">🔍</span>
+        </div>
+        <p class="text-zinc-600 font-light leading-relaxed">
+          Tu veux une coupe gratos, dans une bonne ambiance, en mode chill ? T’es au bon endroit. Mais viens sans attentes de salon pro — ici, c’est simple, humain, et sans pression.
+        </p>
+      </article>
+
+    </section>
+
+    <section class="max-w-2xl mx-auto mt-16 text-center space-y-8 animate-fade-in-up" style="animation-delay: 0.4s;">
+        <div class="p-6 rounded-xl border border-zinc-200 bg-zinc-50">
+            <h3 class="text-lg font-bold text-zinc-900 mb-2">⚠️ Petite précision</h3>
+            <p class="text-sm text-zinc-500">
+                Ce projet est 100 % gratuit, sans pub (pour l'instant lol), sans argent, sans engagement. 
+                Je ne suis pas responsable si ta coupe fait pleurer ta mère.
+            </p>
+        </div>
+        
+        <div>
+            <h3 class="text-2xl font-serif italic text-zinc-900">
+                🎉 C’est pour faire plaisir au peuple de <span class="text-violet-500 underline decoration-1 underline-offset-4">Caen</span> !
+            </h3>
+        </div>
+
+        <div class="pt-4">
+            <a href="planning.html" class="inline-block px-10 py-4 bg-zinc-900 text-white text-xs font-bold uppercase tracking-widest hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-full shadow-lg hover:shadow-violet-500/50 hover:-translate-y-1">
+                Tout est clair, je réserve
+            </a>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto mt-20 pt-10 border-t border-zinc-200">
+        <div class="text-center mb-8">
+             <span class="text-violet-500 text-xs font-bold tracking-widest uppercase">Réseaux Sociaux</span>
+             <h2 class="text-2xl font-serif text-zinc-900 mt-2">Suivre l'aventure</h2>
+        </div>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="https://www.instagram.com/bencoiff_" target="_blank" class="flex items-center justify-center gap-3 px-6 py-4 bg-white border border-zinc-200 rounded-xl hover:border-violet-500 hover:text-violet-500 transition-all group shadow-sm">
+                <span class="font-bold text-sm uppercase tracking-wider">Instagram</span>
+                <svg class="w-4 h-4 text-zinc-400 group-hover:text-violet-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@ben.brtp_" target="_blank" class="flex items-center justify-center gap-3 px-6 py-4 bg-white border border-zinc-200 rounded-xl hover:border-violet-500 hover:text-violet-500 transition-all group shadow-sm">
+                <span class="font-bold text-sm uppercase tracking-wider">TikTok</span>
+                <svg class="w-4 h-4 text-zinc-400 group-hover:text-violet-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.62-1.12-1.76-1.57-2.56-1.57-2.53-3.05v7.22c.03 2.99-2.06 6.01-5.35 6.44-2.93.38-5.93-1.47-6.52-4.37-.62-2.9 1.25-6.02 4.18-6.51.58-.1 1.17-.11 1.76-.02v4.06c-1.13-.53-2.73-.24-3.53.86-.74 1.01-.52 2.56.51 3.32 1.05.77 2.62.66 3.52-.39.81-.95.66-2.23.66-3.49.01-4.04.01-8.08.01-12.12.75-.02 1.5-.02 2.25-.03z"/></svg>
+            </a>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-zinc-200 py-10">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h3 class="text-xl font-serif font-bold text-zinc-900 mb-2">BEN<span class="text-violet-500">.</span>COIFF</h3>
+      <p class="text-[10px] uppercase tracking-widest text-zinc-500">
+        © 2025 Bencoiff • Dev by @raph_hzz 💫
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // EFFET MACHINE A ECRIRE (Simple)
+    const textElement = document.getElementById('typing-text');
+    const textToType = "Tout ce qu'il faut savoir avant de venir.";
+    let index = 0;
+    setTimeout(() => {
+        const interval = setInterval(() => {
+             if (index < textToType.length) {
+                textElement.innerHTML += textToType.charAt(index);
+                index++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 50);
+    }, 500);
+
+    // LOGIQUE MENU MOBILE
+    const btnMenu = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            mobileMenu.classList.add('menu-open');
+            menuOverlay.classList.add('overlay-open');
+            document.body.style.overflow = 'hidden';
+
+            // Icone X
+            bars[0].classList.add('rotate-45', 'translate-y-2');
+            bars[1].classList.add('opacity-0');
+            bars[2].classList.add('-rotate-45', '-translate-y-2');
+        } else {
+            mobileMenu.classList.remove('menu-open');
+            menuOverlay.classList.remove('overlay-open');
+            document.body.style.overflow = '';
+
+            // Icone Burger
+            bars[0].classList.remove('rotate-45', 'translate-y-2');
+            bars[1].classList.remove('opacity-0');
+            bars[2].classList.remove('-rotate-45', '-translate-y-2');
+        }
+    }
+
+    btnMenu.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
+
+    const menuLinks = document.querySelectorAll('.menu-link');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+             if(isMenuOpen) toggleMenu();
+        });
+    });
+  </script>
+</body>
+</html>

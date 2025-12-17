@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth antialiased">
+<head>
+  <meta charset="UTF-8" />
+  <title>BENCOIFF | Avis</title>
+  <meta name="description" content="Laissez un avis sur votre coupe chez Bencoiff." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            violet: {
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              950: '#2e1065',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    
+    .glass-input {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    .glass-input:focus {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: #8b5cf6;
+        outline: none;
+        box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Animation du Menu "Drawer" (Identique à index.html) */
+    #mobile-menu {
+        transition: max-height 0.5s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+    #mobile-menu.menu-open {
+        max-height: 600px;
+        opacity: 1;
+    }
+    #menu-overlay {
+        transition: opacity 0.4s ease;
+        opacity: 0;
+        pointer-events: none;
+    }
+    #menu-overlay.overlay-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .menu-link {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #mobile-menu.menu-open .menu-link {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
+
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+
+  <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+    <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-zinc-200/50"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center relative z-20">
+      <a href="index.html" class="group">
+        <h1 class="text-2xl font-serif font-bold tracking-tight text-zinc-900">
+          BEN<span class="text-violet-500 group-hover:text-violet-400 transition-colors">.</span>COIFF
+        </h1>
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-[0.2em] uppercase">
+        <a href="index.html" class="hover:text-violet-500 transition-colors">Accueil</a>
+        <a href="planning.html" class="hover:text-violet-500 transition-colors">Réserver</a>
+        <a href="avis.html" class="hover:text-violet-500 transition-colors">Avis</a>
+        <a href="faq.html" class="hover:text-violet-500 transition-colors">FAQ</a>
+        <a href="admin.html" class="text-zinc-400 hover:text-zinc-900 transition-colors">Admin</a>
+      </nav>
+
+      <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center text-zinc-900 focus:outline-none">
+        <div class="space-y-1.5 pointer-events-none">
+          <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center" id="bar1"></span>
+          <span class="block w-6 h-0.5 bg-current transition-opacity duration-300" id="bar2"></span>
+          <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center" id="bar3"></span>
+        </div>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10">
+      <div class="flex flex-col items-center py-10 space-y-8">
+        
+        <nav class="flex flex-col space-y-6 text-center">
+            <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
+            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
+            <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
+            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
+            <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
+        </nav>
+
+        <div class="w-12 h-0.5 bg-zinc-200 rounded-full menu-link" style="transition-delay: 200ms;"></div>
+
+        <div class="menu-link flex flex-col items-center gap-4" style="transition-delay: 250ms;">
+             <div class="flex gap-6">
+                <a href="https://instagram.com/ben_coifff" target="_blank" class="text-zinc-500 hover:text-violet-500 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://tiktok.com/@ben.brtp_" target="_blank" class="text-zinc-500 hover:text-violet-500 transition-colors">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.62-1.12-1.76-1.57-2.56-1.57-2.53-3.05v7.22c.03 2.99-2.06 6.01-5.35 6.44-2.93.38-5.93-1.47-6.52-4.37-.62-2.9 1.25-6.02 4.18-6.51.58-.1 1.17-.11 1.76-.02v4.06c-1.13-.53-2.73-.24-3.53.86-.74 1.01-.52 2.56.51 3.32 1.05.77 2.62.66 3.52-.39.81-.95.66-2.23.66-3.49.01-4.04.01-8.08.01-12.12.75-.02 1.5-.02 2.25-.03z"/></svg>
+                </a>
+             </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-20">
+    
+    <section class="relative pt-24 pb-12 px-6 flex flex-col justify-center items-center text-center overflow-hidden">
+        <div class="max-w-4xl w-full space-y-6 animate-fade-in-up">
+            <span class="inline-block py-1 px-3 rounded-full border border-violet-200 bg-violet-50 text-violet-600 text-[10px] font-bold tracking-widest uppercase mb-2">
+                Vos Retours
+            </span>
+            
+            <h1 class="text-4xl sm:text-6xl font-serif font-medium text-zinc-900 tracking-tight">
+                Le Mur des <span class="text-violet-500 italic">Avis.</span>
+            </h1>
+
+            <p class="text-zinc-500 text-base md:text-lg font-light max-w-lg mx-auto leading-relaxed h-8">
+                <span id="typing-text"></span><span class="animate-pulse text-violet-500">|</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="px-6 pb-20">
+        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl shadow-zinc-200/50 p-8 md:p-12 border border-zinc-100">
+            <div class="text-center mb-10">
+                <h3 class="text-xl font-serif font-bold text-zinc-900">Une coupe ? Un avis.</h3>
+                <p class="text-zinc-400 text-xs uppercase tracking-widest mt-2">Partage ton expérience</p>
+            </div>
+
+            <form id="reviewForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="prenom" class="text-xs font-bold uppercase tracking-wider text-zinc-500 ml-1">Prénom</label>
+                        <input type="text" name="prenom" id="prenom" required 
+                            class="glass-input w-full px-5 py-3 rounded-xl text-zinc-800 placeholder-zinc-300" placeholder="Ex: Benjamin">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="nom" class="text-xs font-bold uppercase tracking-wider text-zinc-500 ml-1">Nom</label>
+                        <input type="text" name="nom" id="nom" required 
+                            class="glass-input w-full px-5 py-3 rounded-xl text-zinc-800 placeholder-zinc-300" placeholder="Ex: Coiffure">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-zinc-500 ml-1">Note</label>
+                    <div class="flex items-center space-x-2" id="star-container">
+                        <input type="hidden" name="note" id="noteInput" value="5">
+                        <button type="button" data-val="1" class="star-btn hover:scale-110 transition-transform focus:outline-none text-zinc-300 hover:text-violet-400">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>
+                        </button>
+                        <button type="button" data-val="2" class="star-btn hover:scale-110 transition-transform focus:outline-none text-zinc-300 hover:text-violet-400">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>
+                        </button>
+                        <button type="button" data-val="3" class="star-btn hover:scale-110 transition-transform focus:outline-none text-zinc-300 hover:text-violet-400">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>
+                        </button>
+                        <button type="button" data-val="4" class="star-btn hover:scale-110 transition-transform focus:outline-none text-zinc-300 hover:text-violet-400">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>
+                        </button>
+                        <button type="button" data-val="5" class="star-btn hover:scale-110 transition-transform focus:outline-none text-violet-500">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="text" class="text-xs font-bold uppercase tracking-wider text-zinc-500 ml-1">Message</label>
+                    <textarea name="text" id="textInput" required rows="3"
+                        class="glass-input w-full px-5 py-3 rounded-xl text-zinc-800 placeholder-zinc-300 resize-none" placeholder="C'était superbe, j'ai adoré..."></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-4 bg-zinc-900 text-white text-xs font-bold uppercase tracking-widest hover:bg-violet-500 transition-all duration-300 rounded-xl shadow-lg shadow-zinc-900/20">
+                        Envoyer l'avis
+                    </button>
+                </div>
+                
+                <p id="formMessage" class="text-center text-sm font-medium h-5 transition-colors duration-300"></p>
+            </form>
+        </div>
+    </section>
+
+    <section class="bg-zinc-100 py-24 border-t border-zinc-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-end justify-between mb-12">
+                 <div>
+                    <h2 class="text-3xl md:text-4xl font-serif text-zinc-900">Derniers retours</h2>
+                 </div>
+                 <div class="hidden md:block w-32 h-px bg-zinc-300"></div>
+            </div>
+
+            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-label="Avis des clients">
+                <div class="bg-white p-6 rounded-2xl shadow-sm h-48 animate-pulse">
+                    <div class="h-4 bg-zinc-200 rounded w-1/3 mb-4"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-full mb-2"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-2/3"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm h-48 animate-pulse delay-100">
+                    <div class="h-4 bg-zinc-200 rounded w-1/3 mb-4"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-full mb-2"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-2/3"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm h-48 animate-pulse delay-200">
+                    <div class="h-4 bg-zinc-200 rounded w-1/3 mb-4"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-full mb-2"></div>
+                    <div class="h-2 bg-zinc-200 rounded w-2/3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-zinc-200 py-10">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h3 class="text-xl font-serif font-bold text-zinc-900 mb-2">BEN<span class="text-violet-500">.</span>COIFF</h3>
+      <p class="text-[10px] uppercase tracking-widest text-zinc-500">
+        © 2025 Bencoiff • Dev by @raph_hzz 💫
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    // ----------------------------------------------------
+    // 1. SUPABASE CONFIG
+    // ----------------------------------------------------
+    const supabaseClient = window.supabase.createClient(
+      "https://bmagjduzjqtuzaudbpwt.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtYWdqZHV6anF0dXphdWRicHd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5OTYzMjUsImV4cCI6MjA4MTU3MjMyNX0.0DZKw2BpHm9qSIv6RxwVEPro6TYiPO9sz4_Rtjqi96M"
+    );
+
+    // ----------------------------------------------------
+    // 2. ANIMATION TEXTE TYPING
+    // ----------------------------------------------------
+    const textToType = "Ce que vous pensez";
+    const textElement = document.getElementById("typing-text");
+    let typeIndex = 0;
+    
+    function animateText() {
+      if (typeIndex < textToType.length) {
+        textElement.innerHTML += textToType.charAt(typeIndex);
+        typeIndex++;
+        setTimeout(animateText, 80);
+      }
+    }
+    // Démarrage retardé pour laisser le fade-in se faire
+    setTimeout(animateText, 800);
+
+
+    // ----------------------------------------------------
+    // 3. LOGIQUE MENU MOBILE (Copiée de index.html)
+    // ----------------------------------------------------
+    const btnMenu = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        if (isMenuOpen) {
+            mobileMenu.classList.add('menu-open');
+            menuOverlay.classList.add('overlay-open');
+            document.body.style.overflow = 'hidden';
+            bars[0].classList.add('rotate-45', 'translate-y-2');
+            bars[1].classList.add('opacity-0');
+            bars[2].classList.add('-rotate-45', '-translate-y-2');
+        } else {
+            mobileMenu.classList.remove('menu-open');
+            menuOverlay.classList.remove('overlay-open');
+            document.body.style.overflow = '';
+            bars[0].classList.remove('rotate-45', 'translate-y-2');
+            bars[1].classList.remove('opacity-0');
+            bars[2].classList.remove('-rotate-45', '-translate-y-2');
+        }
+    }
+    btnMenu.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
+
+
+    // ----------------------------------------------------
+    // 4. SYSTÈME DE NOTATION (ÉTOILES)
+    // ----------------------------------------------------
+    const starBtns = document.querySelectorAll('.star-btn');
+    const noteInput = document.getElementById('noteInput');
+    let currentRating = 5;
+
+    // Initialisation visuelle (Tout allumé)
+    updateStars(5);
+
+    starBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = parseInt(btn.getAttribute('data-val'));
+            currentRating = val;
+            noteInput.value = val;
+            updateStars(val);
+        });
+        
+        // Survol optionnel pour UX
+        btn.addEventListener('mouseenter', () => {
+            const val = parseInt(btn.getAttribute('data-val'));
+            updateStars(val, true); // true = mode preview
+        });
+    });
+
+    document.getElementById('star-container').addEventListener('mouseleave', () => {
+        updateStars(currentRating); // Retour à la note sélectionnée
+    });
+
+    function updateStars(count, isPreview = false) {
+        starBtns.forEach(btn => {
+            const val = parseInt(btn.getAttribute('data-val'));
+            if (val <= count) {
+                // Étoile allumée
+                btn.classList.remove('text-zinc-300');
+                btn.classList.add(isPreview ? 'text-violet-300' : 'text-violet-500');
+            } else {
+                // Étoile éteinte
+                btn.classList.remove('text-violet-500', 'text-violet-300');
+                btn.classList.add('text-zinc-300');
+            }
+        });
+    }
+
+    // ----------------------------------------------------
+    // 5. GESTION DES AVIS (ENVOI & LECTURE)
+    // ----------------------------------------------------
+    const form = document.getElementById('reviewForm');
+    const messageElem = document.getElementById('formMessage');
+    const reviewsSection = document.getElementById('reviews-grid');
+
+    // --- ENVOI ---
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const prenom = form.prenom.value.trim();
+        const nom = form.nom.value.trim();
+        const text = form.text.value.trim(); 
+        const note = Number(form.note.value);
+
+        messageElem.textContent = '';
+        messageElem.className = 'text-center text-sm font-medium h-5 transition-colors duration-300';
+
+        if (!prenom || !nom || !text || !note) {
+          messageElem.textContent = "Tous les champs sont requis.";
+          messageElem.classList.add('text-red-500');
+          return;
+        }
+
+        const reviewData = {
+          prenom,
+          nom,
+          text,
+          note,
+          status: false, // En attente de validation admin
+          created_at: new Date().toISOString(),
+        };
+
+        try {
+          const { error } = await supabaseClient
+            .from('avis')
+            .insert([reviewData]);
+
+          if (error) throw error;
+
+          form.reset();
+          // Reset visuel des étoiles
+          currentRating = 5;
+          noteInput.value = 5;
+          updateStars(5);
+
+          messageElem.textContent = "Merci ! Votre avis sera publié après validation.";
+          messageElem.classList.add('text-violet-600');
+
+        } catch (err) {
+          console.error(err);
+          messageElem.textContent = "Erreur lors de l'envoi. Réessayez plus tard.";
+          messageElem.classList.add('text-red-500');
+        }
+      });
+    }
+
+    // --- LECTURE ---
+    async function loadReviews() {
+      if (!reviewsSection) return;
+
+      try {
+        const { data: reviews, error } = await supabaseClient
+          .from('avis')
+          .select('*')
+          .eq('status', true)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        reviewsSection.innerHTML = '';
+
+        if (!reviews || reviews.length === 0) {
+          reviewsSection.innerHTML = `
+            <div class="col-span-full flex flex-col items-center justify-center py-12 text-center opacity-60">
+                <p class="text-4xl mb-2">🤷‍♂️</p>
+                <p class="text-zinc-500 font-serif text-xl">Aucun avis pour le moment.</p>
+                <p class="text-xs uppercase tracking-widest text-zinc-400 mt-2">Soyez le premier !</p>
+            </div>`;
+          return;
+        }
+
+        reviews.forEach((r, index) => {
+          // Génération des étoiles HTML
+          let starsHtml = '';
+          for (let i = 1; i <= 5; i++) {
+            starsHtml += i <= r.note
+              ? `<svg class="w-4 h-4 fill-current text-violet-500" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>`
+              : `<svg class="w-4 h-4 text-zinc-200" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.644 11 1 7.09l6.061-.91L10 1l2.939 5.18L19 7.09 14.356 11l1.522 7.09z"/></svg>`;
+          }
+
+          // Formatage Date
+          const date = new Date(r.created_at);
+          const dateStr = date.toLocaleDateString('fr-FR', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          });
+
+          // Création de la carte
+          const article = document.createElement('article');
+          article.className = `
+            bg-white border border-zinc-100
+            p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1
+            transition-all duration-300 flex flex-col justify-between h-full
+            opacity-0 animate-fade-in-up
+          `;
+          article.style.animationDelay = `${index * 100}ms`;
+
+          article.innerHTML = `
+            <div>
+              <div class="flex space-x-1 mb-4">${starsHtml}</div>
+              <p class="text-zinc-600 font-light italic leading-relaxed mb-6">"${r.text}"</p>
+            </div>
+            <div class="mt-auto pt-4 border-t border-zinc-50 flex items-center justify-between">
+              <p class="font-bold text-zinc-900 uppercase text-xs tracking-widest">${r.prenom} ${r.nom.charAt(0)}.</p>
+              <span class="text-[10px] text-zinc-400 font-sans">${dateStr}</span>
+            </div>
+          `;
+
+          reviewsSection.appendChild(article);
+        });
+
+      } catch (err) {
+        console.error(err);
+        reviewsSection.innerHTML = '<p class="col-span-full text-center text-red-400 text-sm uppercase tracking-widest">Impossible de charger les avis.</p>';
+      }
+    }
+
+    // Charger les avis au démarrage
+    loadReviews();
+  </script>
+</body>
+</html>
