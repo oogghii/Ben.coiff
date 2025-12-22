@@ -17,7 +17,7 @@ setTimeout(() => {
 // CONFIGURATION
 // ----------------------------------------------------
 const carouselContainer = document.getElementById('gallery-grid');
-const totalImages = 9;
+const totalImages = 6;
 const imageFolder = 'images/';
 
 // ----------------------------------------------------
@@ -42,9 +42,9 @@ for (let i = 1; i <= totalImages; i++) {
     // Largeurs adaptées : Mobile (85%) / Tablette (45%) / PC (30%)
     contentHTML += `
     <div class="relative flex-none w-[85%] sm:w-[45%] lg:w-[30%] aspect-square snap-start rounded-2xl overflow-hidden bg-zinc-200 cursor-zoom-in shadow-sm hover:shadow-md transition-all duration-300"
-            onclick="openLightbox('${imageFolder}coupe${i}.png')">
-            <img src="${imageFolder}coupe${i}.png" alt="Coupe ${i}" loading="lazy"
-            class="h-full w-full object-cover object-top transition-transform duration-700 ease-in-out hover:scale-105" />
+            onclick="openLightbox('${imageFolder}image${i}.jpeg')">
+            <img src="${imageFolder}image${i}.jpeg" alt="Coupe ${i}" loading="lazy"
+            class="h-full w-full object-cover object-center transition-transform duration-700 ease-in-out hover:scale-105" />
             <div class="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors duration-300"></div>
     </div>`;
 }
