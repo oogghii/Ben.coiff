@@ -111,3 +111,19 @@ lightbox.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { lightbox.click(); }
 });
+
+const startDate = new Date('2025-01-01');
+  const currentDate = new Date();
+
+  // Calcul du nombre de mois (différence d'années * 12 + différence de mois)
+  let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12;
+  months -= startDate.getMonth();
+  months += currentDate.getMonth();
+
+  // On ajoute 1 pour inclure le mois en cours si on veut, 
+  // ou on laisse tel quel pour "mois révolus". 
+  // Ici je laisse la différence brute, ce qui donne 0 en Janvier 2025, 1 en Février, etc.
+  // SI tu veux que Janvier compte pour 1 mois déjà, ajoute +1 à la ligne suivante :
+  months = months <= 0 ? 1 : months + 1;
+
+  document.getElementById('months-count').textContent = months;

@@ -219,9 +219,10 @@ if (formCreneau) {
         btn.disabled = true;
 
         try {
-            // 2. ISO 8601 Construction (Strict)
-            // Combines date and time directly to avoid Timezone offsets issues
-            const isoString = `${dateVal}T${heureVal}:00`;
+            // --- CORRECTION UTC ICI ---
+            // On crée une date locale JS et on la convertit en ISO (UTC)
+            // Ex: 17:00 France devient 16:00 UTC
+            const isoString = new Date(`${dateVal}T${heureVal}:00`).toISOString();
 
             const nouveauCreneau = {
                 slot: isoString,
@@ -563,11 +564,12 @@ function ouvrirModalDatePourPreset(horaires) {
         try {
             const inserts = horaires.map(h => {
                 const [hh, mm] = h.split(":");
-                const d = new Date(dateStr);
-                d.setHours(hh);
-                d.setMinutes(mm);
+                // --- CORRECTION UTC ICI ---
+                // On construit la date locale précise : "YYYY-MM-DDTHH:MM:00"
+                const localDate = new Date(`${dateStr}T${hh}:${mm}:00`);
+                
                 return {
-                    slot: d.toLocaleString("sv-SE").replace(" ", "T"),
+                    slot: localDate.toISOString(), // Convertit en UTC proprement
                     lieu: lieuStr,
                     postal: cpStr
                 };

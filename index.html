@@ -2,7 +2,7 @@
 <html lang="fr" class="scroll-smooth antialiased">
 <head>
   <meta charset="UTF-8" />
-  <title>BENCOIFF | Studio</title>
+  <title>BENCOIFF | Accueil</title>
   <meta name="description" content="Coiffure masculine amateur à Caen. Gratuit, passionné, exclusif." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
@@ -79,12 +79,15 @@
     
     <section class="relative min-h-[90vh] flex flex-col justify-center items-center px-6 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
-                class="w-full h-full object-cover opacity-90" 
-                alt="Background">
+            <img src="images/background-mobile.jpeg" 
+                class="block md:hidden w-full h-full object-cover opacity-90" 
+                alt="Background Mobile">
+
+            <img src="images/background.jpeg" 
+                class="hidden md:block w-full h-full object-cover opacity-90" 
+                alt="Background Desktop">
             
             <div class="absolute inset-0 bg-black/50"></div>
-            
             <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-zinc-50 to-transparent"></div>
         </div>
 
@@ -95,7 +98,7 @@
             
             <h1 class="text-5xl sm:text-7xl md:text-8xl font-serif font-medium text-white tracking-tighter leading-[0.9]">
                 Débutant mais <br class="md:hidden" />
-                <span class="italic text-zinc-300 font-normal">Propre.</span>
+                <span class="italic text-zinc-300 font-normal">Appliqué.</span>
             </h1>
 
             <p class="text-zinc-200 text-base md:text-xl font-light max-w-xl mx-auto leading-relaxed">
@@ -125,11 +128,13 @@
                 <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-2">À payer</p>
             </div>
             <div>
-                <p class="text-3xl font-serif text-zinc-900">14</p>
+                <p class="text-3xl font-serif text-zinc-900">
+                    <span id="months-count">--</span>
+                </p>
                 <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-2">Mois de coupe</p>
             </div>
              <div>
-                <p class="text-3xl font-serif text-violet-500">4.9/5</p>
+                <p class="text-3xl font-serif text-violet-500">5/5</p>
                 <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-2">Note Moyenne</p>
             </div>
         </div>
