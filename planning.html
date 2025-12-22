@@ -13,12 +13,11 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="tailwind.js"></script>
-  <link rel="stylesheet" href="css/planning.css">
 </head>
 
 <body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
 
-  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
 
   <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
     <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-zinc-200/50"></div>
@@ -32,7 +31,7 @@
 
       <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-[0.2em] uppercase">
         <a href="index.html" class="hover:text-violet-500 transition-colors">Accueil</a>
-        <a href="planning.html" class="hover:text-violet-500 transition-colors">Réserver</a>
+        <a href="planning.html" class="text-violet-500 transition-colors">Réserver</a>
         <a href="avis.html" class="hover:text-violet-500 transition-colors">Avis</a>
         <a href="faq.html" class="hover:text-violet-500 transition-colors">FAQ</a>
         <a href="admin.html" class="text-zinc-400 hover:text-zinc-900 transition-colors">Admin</a>
@@ -47,12 +46,12 @@
       </button>
     </div>
 
-    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10">
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10 opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 ease-in-out">
       <div class="flex flex-col items-center py-10 space-y-8">
         
         <nav class="flex flex-col space-y-6 text-center">
             <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
-            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
+            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
             <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
             <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
             <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
@@ -200,6 +199,7 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="header.js"></script>
 <script src="js/planning.js"></script>
 </body>
 </html>

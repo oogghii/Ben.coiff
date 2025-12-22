@@ -481,7 +481,7 @@ function afficherPresets(presets) {
                 <button class="text-zinc-400 hover:text-red-500 text-xs uppercase" onclick="supprimerPreset('${p.id}')">Suppr</button>
             </div>
             <div class="flex flex-wrap gap-2">${tags}</div>
-            <button class="mt-auto w-full py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold uppercase tracking-widest rounded transition btn-apply-preset">
+            <button class="btn-apply-preset mt-auto w-full px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg transition-all">
                 Appliquer ce preset
             </button>
         `;

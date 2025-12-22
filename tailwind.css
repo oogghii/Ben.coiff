@@ -1,0 +1,33 @@
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #52525b; border-radius: 3px; }
+
+.glass-dark {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Styles pour les tables dynamiques JS */
+table { width: 100%; border-collapse: collapse; }
+th { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: #a1a1aa; padding: 1rem; border-bottom: 1px solid #27272a; text-align: left; }
+td { padding: 1rem; color: #e4e4e7; border-bottom: 1px solid #27272a; font-size: 0.9rem; }
+.dark td { border-color: #27272a; color: #e4e4e7; }
+tr:last-child td { border-bottom: none; }
+
+/* Form Inputs Overrides */
+input, select {
+    background-color: transparent; 
+    border: 1px solid #e4e4e7;
+}
+.dark input, .dark select {
+    background-color: #18181b; 
+    border: 1px solid #27272a;
+    color: white;
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px #8b5cf6;
+}

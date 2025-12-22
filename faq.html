@@ -10,79 +10,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tailwind.css">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Manrope', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
-          },
-          colors: {
-            violet: {
-              400: '#a78bfa',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-              950: '#2e1065',
-            }
-          },
-          animation: {
-            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-          },
-          keyframes: {
-            fadeInUp: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="styles.css">
-  
-  <style>
-    ::-webkit-scrollbar { width: 0px; background: transparent; }
-    
-    /* Animation du Menu "Drawer" */
-    #mobile-menu {
-        transition: max-height 0.5s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-    }
-    #mobile-menu.menu-open {
-        max-height: 600px;
-        opacity: 1;
-    }
-    
-    #menu-overlay {
-        transition: opacity 0.4s ease;
-        opacity: 0;
-        pointer-events: none;
-    }
-    #menu-overlay.overlay-open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .menu-link {
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    #mobile-menu.menu-open .menu-link {
-        opacity: 1;
-        transform: translateY(0);
-    }
-  </style>
+  <script src="tailwind.js"></script>
 </head>
 
 <body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
 
-  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+  <body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
+
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
 
   <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
     <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-zinc-200/50"></div>
@@ -98,7 +36,7 @@
         <a href="index.html" class="hover:text-violet-500 transition-colors">Accueil</a>
         <a href="planning.html" class="hover:text-violet-500 transition-colors">Réserver</a>
         <a href="avis.html" class="hover:text-violet-500 transition-colors">Avis</a>
-        <a href="faq.html" class="hover:text-violet-500 transition-colors">FAQ</a>
+        <a href="faq.html" class="text-violet-500 transition-colors">FAQ</a>
         <a href="admin.html" class="text-zinc-400 hover:text-zinc-900 transition-colors">Admin</a>
       </nav>
 
@@ -111,14 +49,14 @@
       </button>
     </div>
 
-    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10">
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10 opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 ease-in-out">
       <div class="flex flex-col items-center py-10 space-y-8">
         
         <nav class="flex flex-col space-y-6 text-center">
             <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
             <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
             <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
-            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
+            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
             <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
         </nav>
 
@@ -268,62 +206,7 @@
     </div>
   </footer>
 
-  <script>
-    // EFFET MACHINE A ECRIRE (Simple)
-    const textElement = document.getElementById('typing-text');
-    const textToType = "Tout ce qu'il faut savoir avant de venir.";
-    let index = 0;
-    setTimeout(() => {
-        const interval = setInterval(() => {
-             if (index < textToType.length) {
-                textElement.innerHTML += textToType.charAt(index);
-                index++;
-            } else {
-                clearInterval(interval);
-            }
-        }, 50);
-    }, 500);
-
-    // LOGIQUE MENU MOBILE
-    const btnMenu = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
-    let isMenuOpen = false;
-
-    function toggleMenu() {
-        isMenuOpen = !isMenuOpen;
-        
-        if (isMenuOpen) {
-            mobileMenu.classList.add('menu-open');
-            menuOverlay.classList.add('overlay-open');
-            document.body.style.overflow = 'hidden';
-
-            // Icone X
-            bars[0].classList.add('rotate-45', 'translate-y-2');
-            bars[1].classList.add('opacity-0');
-            bars[2].classList.add('-rotate-45', '-translate-y-2');
-        } else {
-            mobileMenu.classList.remove('menu-open');
-            menuOverlay.classList.remove('overlay-open');
-            document.body.style.overflow = '';
-
-            // Icone Burger
-            bars[0].classList.remove('rotate-45', 'translate-y-2');
-            bars[1].classList.remove('opacity-0');
-            bars[2].classList.remove('-rotate-45', '-translate-y-2');
-        }
-    }
-
-    btnMenu.addEventListener('click', toggleMenu);
-    menuOverlay.addEventListener('click', toggleMenu);
-
-    const menuLinks = document.querySelectorAll('.menu-link');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-             if(isMenuOpen) toggleMenu();
-        });
-    });
-  </script>
+  <script src="js/faq.js"></script>
+  <script src="header.js"></script>
 </body>
 </html>

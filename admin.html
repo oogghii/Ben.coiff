@@ -9,96 +9,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="tailwind.css" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Manrope', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
-          },
-          colors: {
-            violet: {
-              400: '#a78bfa',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-              950: '#2e1065',
-            }
-          },
-          animation: {
-            'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-            'popup-show': 'popupShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-          },
-          keyframes: {
-            fadeInUp: {
-              '0%': { opacity: '0', transform: 'translateY(10px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            popupShow: {
-                '0%': { opacity: '0', transform: 'scale(0.95)' },
-                '100%': { opacity: '1', transform: 'scale(1)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="styles.css">
-  
-  <style>
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #52525b; border-radius: 3px; }
-    
-    .glass-dark {
-        background: rgba(10, 10, 10, 0.8);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    
-    /* Styles pour les tables dynamiques JS */
-    table { width: 100%; border-collapse: collapse; }
-    th { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: #a1a1aa; padding: 1rem; border-bottom: 1px solid #27272a; text-align: left; }
-    td { padding: 1rem; color: #e4e4e7; border-bottom: 1px solid #27272a; font-size: 0.9rem; }
-    .dark td { border-color: #27272a; color: #e4e4e7; }
-    tr:last-child td { border-bottom: none; }
-    
-    /* Form Inputs Overrides */
-    input, select {
-        background-color: transparent; 
-        border: 1px solid #e4e4e7;
-    }
-    .dark input, .dark select {
-        background-color: #18181b; 
-        border: 1px solid #27272a;
-        color: white;
-    }
-    input:focus, select:focus {
-        outline: none;
-        border-color: #8b5cf6;
-        box-shadow: 0 0 0 1px #8b5cf6;
-    }
-  </style>
+  <script src="tailwind.js"></script>
 </head>
 
-<body class="bg-zinc-50 dark:bg-[#050505] text-zinc-800 dark:text-zinc-200 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white">
+<body class="bg-zinc-50 text-zinc-800 min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
+  
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
 
   <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
-    <div class="absolute inset-0 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50"></div>
+    <div class="absolute inset-0 bg-white/90 backdrop-blur-md border-b border-zinc-200/50"></div>
     
     <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center relative z-20">
-      <a href="index.html" class="group flex items-center gap-3">
-        <h1 class="text-2xl font-serif font-bold tracking-tight text-zinc-900 dark:text-white">
+      <a href="index.html" class="group">
+        <h1 class="text-2xl font-serif font-bold tracking-tight text-zinc-900">
           BEN<span class="text-violet-500 group-hover:text-violet-400 transition-colors">.</span>COIFF 
           <span class="font-sans text-[10px] uppercase tracking-widest text-zinc-500 ml-1 font-normal bg-zinc-100 dark:bg-zinc-900 px-2 py-1 rounded">Admin</span>
         </h1>
       </a>
 
-      <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-[0.2em] uppercase text-zinc-800 dark:text-zinc-300">
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-[0.2em] uppercase">
         <a href="index.html" class="hover:text-violet-500 transition-colors">Accueil</a>
         <a href="planning.html" class="hover:text-violet-500 transition-colors">Réserver</a>
         <a href="avis.html" class="hover:text-violet-500 transition-colors">Avis</a>
@@ -106,7 +38,7 @@
         <a href="admin.html" class="text-violet-500 transition-colors">Admin</a>
       </nav>
 
-      <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center text-zinc-900 dark:text-white focus:outline-none">
+      <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center text-zinc-900 focus:outline-none">
         <div class="space-y-1.5 pointer-events-none">
           <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center" id="bar1"></span>
           <span class="block w-6 h-0.5 bg-current transition-opacity duration-300" id="bar2"></span>
@@ -115,18 +47,18 @@
       </button>
     </div>
 
-    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 shadow-2xl z-10 opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 ease-in-out">
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-2xl z-10 opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 ease-in-out">
       <div class="flex flex-col items-center py-10 space-y-8">
         
         <nav class="flex flex-col space-y-6 text-center">
-            <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
-            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
-            <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
-            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
-            <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
+            <a href="index.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300">Accueil</a>
+            <a href="planning.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 50ms;">Réserver</a>
+            <a href="avis.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 100ms;">Avis</a>
+            <a href="faq.html" class="menu-link text-3xl sm:text-4xl font-serif text-zinc-900 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">FAQ</a>
+            <a href="admin.html" class="menu-link text-3xl sm:text-4xl font-serif text-violet-500 hover:text-violet-500 hover:italic transition-all duration-300" style="transition-delay: 150ms;">Admin</a>
         </nav>
 
-        <div class="w-12 h-0.5 bg-zinc-200 dark:bg-zinc-800 rounded-full menu-link" style="transition-delay: 200ms;"></div>
+        <div class="w-12 h-0.5 bg-zinc-200 rounded-full menu-link" style="transition-delay: 200ms;"></div>
 
         <div class="menu-link flex flex-col items-center gap-4" style="transition-delay: 250ms;">
              <div class="flex gap-6">
@@ -301,10 +233,10 @@
               
               <div class="text-center mb-8">
                   <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                      🔒
+                      🤫
                   </div>
-                  <h2 class="text-2xl font-serif font-bold text-zinc-900 dark:text-white">Admin Access</h2>
-                  <p class="text-xs text-zinc-500 uppercase tracking-widest mt-2">Veuillez vous identifier</p>
+                  <h2 class="text-2xl font-serif font-bold text-zinc-900 dark:text-white">Accès à la page Admin</h2>
+                  <p class="text-xs text-zinc-500 uppercase tracking-widest mt-2">Espace reservé ⛔</p>
               </div>
 
               <form id="authForm" class="space-y-4">
@@ -330,35 +262,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="js/admin.js"></script>
-  <script>
-    // Updated Script for the New Header Structure
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
-    let isOpen = false;
-
-    btn.addEventListener('click', () => {
-        isOpen = !isOpen;
-        if(isOpen) {
-            // Open Menu
-            menu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
-            menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-            
-            // Animate Icon (Cross)
-            bars[0].classList.add('rotate-45', 'translate-y-2');
-            bars[1].classList.add('opacity-0');
-            bars[2].classList.add('-rotate-45', '-translate-y-2');
-        } else {
-            // Close Menu
-            menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-            menu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
-            
-            // Animate Icon (Back to Burger)
-            bars[0].classList.remove('rotate-45', 'translate-y-2');
-            bars[1].classList.remove('opacity-0');
-            bars[2].classList.remove('-rotate-45', '-translate-y-2');
-        }
-    });
-  </script>
+  <script src="header.js"></script>
 </body>
 </html>
