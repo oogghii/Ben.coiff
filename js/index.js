@@ -17,7 +17,7 @@ setTimeout(() => {
 // CONFIGURATION
 // ----------------------------------------------------
 const carouselContainer = document.getElementById('gallery-grid');
-const totalImages = 6;
+const totalImages = 7;
 const imageFolder = 'images/';
 
 // ----------------------------------------------------
