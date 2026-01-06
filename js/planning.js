@@ -241,10 +241,11 @@ async function renderPlanning() {
 
 // On accepte lieu et postal en paramètres pour éviter de re-chercher dans la DB
 async function ouvrirFormulaire(slotKey, lieu, postal) {
-    if (localStorage.getItem(CONFIG.LOCAL_STORAGE_KEY)) {
-        showToast("Tu as déjà un rendez-vous ! Annule l'ancien d'abord.", "error");
-        return;
-    }
+    // TEMPORAIREMENT DÉSACTIVÉ
+    // if (localStorage.getItem(CONFIG.LOCAL_STORAGE_KEY)) {
+    //     showToast("Tu as déjà un rendez-vous ! Annule l'ancien d'abord.", "error");
+    //     return;
+    // }
 
     const form = document.getElementById("reservationForm");
     
@@ -446,4 +447,5 @@ window.addEventListener("DOMContentLoaded", () => {
     purgeExpiredLocalReservation();
     setTimeout(startTyping, 500);
     renderPlanning();
+
 });
