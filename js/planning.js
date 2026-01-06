@@ -25,6 +25,28 @@ let state = {
  * ============================================================
  */
 
+function purgeExpiredLocalReservation() {
+    const stored = localStorage.getItem(CONFIG.LOCAL_STORAGE_KEY);
+    if (!stored) return;
+
+    try {
+        const data = JSON.parse(stored);
+        const slotDate = new Date(data.slotKey.replace(" ", "T"));
+
+        if (isNaN(slotDate)) {
+            localStorage.removeItem(CONFIG.LOCAL_STORAGE_KEY);
+            return;
+        }
+
+        if (slotDate < new Date()) {
+            localStorage.removeItem(CONFIG.LOCAL_STORAGE_KEY);
+        }
+    } catch {
+        localStorage.removeItem(CONFIG.LOCAL_STORAGE_KEY);
+    }
+}
+
+
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -421,6 +443,7 @@ function startTyping() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+    purgeExpiredLocalReservation();
     setTimeout(startTyping, 500);
     renderPlanning();
 });
